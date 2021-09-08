@@ -4,32 +4,42 @@ var moment = require('moment');
 // array of objects
 let schedule = [
   {
-    day: "monday", // mon -> sunday
+    day: "tuesday", 
+    startTime: "2021-09-05T11:30:00.000Z", // timestamp in utc
+    endTime: "2021-09-07T12:30:00.000Z" // timestamp in utc
+  },
+  {
+    day: "tuesday", 
+    startTime: "2021-09-06T11:30:00.000Z", // timestamp in utc
+    endTime: "2021-09-07T12:30:00.000Z" // timestamp in utc
+  },
+  {
+    day: "tuesday", 
     startTime: "2021-09-07T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-07T12:30:00.000Z" // timestamp in utc
   },
   {
-    day: "tuesday", // mon -> sunday
+    day: "wednesday", 
     startTime: "2021-09-08T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-08T12:30:00.000Z" // timestamp in utc
   },
   {
-    day: "wednesday", // mon -> sunday
+    day: "thursday", 
     startTime: "2021-09-09T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-09T12:30:00.000Z" // timestamp in utc
   },
   {
-    day: "thursday", // mon -> sunday
+    day: "friday", 
     startTime: "2021-09-10T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-10T12:30:00.000Z" // timestamp in utc
   },
   {
-    day: "friday", // mon -> sunday
+    day: "saturday", 
     startTime: "2021-09-11T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-11T12:30:00.000Z" // timestamp in utc
   },
   {
-    day: "saturday", // mon -> sunday
+    day: "sunday", 
     startTime: "2021-09-12T11:30:00.000Z", // timestamp in utc
     endTime: "2021-09-12T12:30:00.000Z" // timestamp in utc
   }
@@ -51,8 +61,10 @@ for(let sch of schedule){
   sch["endTimestamp"] = moment(sch.endTime).valueOf();
 }
 
-let previousClasses = schedule.filter(x => x.startTimestamp < moment().format('x'));
-let upcomingClasses = schedule.filter(x => x.startTimestamp > moment().format('x'));
+let currentDateTimeStamp = moment("2021-09-08T21:52:10.884Z").valueOf(); // "Sep 9, 2021 3:22 AM" 
+
+let previousClasses = schedule.filter(x => x.startTimestamp <= currentDateTimeStamp);
+let upcomingClasses = schedule.filter(x => x.startTimestamp > currentDateTimeStamp);
 let nextClass = upcomingClasses && upcomingClasses.length 
   ? (upcomingClasses.sort((a,b) => a.startTimestamp - b.startTimestamp))[0] 
   : null;
